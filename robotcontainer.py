@@ -12,6 +12,8 @@ import romi
 from commands.arcadedrive import ArcadeDrive
 from commands.autonomous_distance import AutonomousDistance
 from commands.autonomous_time import AutonomousTime
+# from commands.buttonrotate import ButtonRotate
+from commands.tankdrive import TankDrive
 
 from subsystems.drivetrain import Drivetrain
 
@@ -58,7 +60,7 @@ class RobotContainer:
 
         # Default command is arcade drive. This will run unless another command
         # is scheduler over it
-        self.drivetrain.setDefaultCommand(self.getArcadeDriveCommand())
+        self.drivetrain.setDefaultCommand(self.getTankDriveCommand())
 
         # Example of how to use the onboard IO
         onboardButtonA = commands2.button.Button(self.onboardIO.getButtonAPressed)
@@ -86,3 +88,16 @@ class RobotContainer:
             lambda: self.controller.getRawAxis(1),
             lambda: self.controller.getRawAxis(0),
         )
+        
+        
+    def getTankDriveCommand(self) -> TankDrive:
+        """Use this to pass the teleop command to the main robot class.
+
+        :returns: the command to run in teleop
+        """
+        return TankDrive(
+            self.drivetrain,
+            lambda: self.controller.getRawAxis(1),
+            lambda: self.controller.getRawAxis(5),
+        )
+    
