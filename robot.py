@@ -42,8 +42,10 @@ import commands2
 
 from robotcontainer import RobotContainer
 
+import config
+
 # If your ROMI isn't at the default address, set that here
-os.environ["HALSIMWS_HOST"] = "10.5.73.1"
+os.environ["HALSIMWS_HOST"] = config.ip_address
 os.environ["HALSIMWS_PORT"] = "3300"
 
 
