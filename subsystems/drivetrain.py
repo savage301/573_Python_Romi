@@ -1,6 +1,8 @@
+#
 # Copyright (c) FIRST and other WPILib contributors.
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
+#
 
 import math
 
@@ -10,7 +12,7 @@ import wpilib.drive
 import romi
 
 
-class Drivetrain(commands2.SubsystemBase):
+class Drivetrain(commands2.Subsystem):
     kCountsPerRevolution = 1440.0
     kWheelDiameterInch = 2.75591
 
@@ -21,12 +23,15 @@ class Drivetrain(commands2.SubsystemBase):
         # PWM channels 0 and 1 respectively
         self.leftMotor = wpilib.Spark(0)
         self.rightMotor = wpilib.Spark(1)
-        self.leftMotor.setInverted(True)
+        self.rightMotor.setInverted(True)
 
         # The Romi has onboard encoders that are hardcoded
         # to use DIO pins 4/5 and 6/7 for the left and right
         self.leftEncoder = wpilib.Encoder(4, 5)
         self.rightEncoder = wpilib.Encoder(6, 7)
+
+
+        self.line_sensor = wpilib.AnalogInput(0)
 
         # Set up the differential drive controller
         self.drive = wpilib.drive.DifferentialDrive(self.leftMotor, self.rightMotor)
@@ -53,6 +58,7 @@ class Drivetrain(commands2.SubsystemBase):
         :param fwd: the commanded forward movement
         :param rot: the commanded rotation
         """
+        print(self.getLineSensor())
         self.drive.arcadeDrive(fwd, rot)
 
     def resetEncoders(self) -> None:
@@ -121,3 +127,7 @@ class Drivetrain(commands2.SubsystemBase):
     def resetGyro(self) -> None:
         """Reset the gyro"""
         self.gyro.reset()
+
+    def getLineSensor(self) -> None:
+        
+        return self.line_sensor.getValue()

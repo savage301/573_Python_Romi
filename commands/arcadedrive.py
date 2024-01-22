@@ -1,13 +1,15 @@
+#
 # Copyright (c) FIRST and other WPILib contributors.
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
+#
 
 import typing
 import commands2
 from subsystems.drivetrain import Drivetrain
 
 
-class ArcadeDrive(commands2.CommandBase):
+class ArcadeDrive(commands2.Command):
     def __init__(
         self,
         drive: Drivetrain,
@@ -27,7 +29,7 @@ class ArcadeDrive(commands2.CommandBase):
         self.forward = forward
         self.rotation = rotation
 
-        self.addRequirements([self.drive])
+        self.addRequirements(self.drive)
 
     def execute(self) -> None:
         self.drive.arcadeDrive(self.forward(), self.rotation())

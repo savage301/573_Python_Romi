@@ -1,13 +1,15 @@
+#
 # Copyright (c) FIRST and other WPILib contributors.
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
+#
 
 import commands2
 
 from subsystems.drivetrain import Drivetrain
 
 
-class DriveDistance(commands2.CommandBase):
+class DriveDistance(commands2.Command):
     def __init__(self, speed: float, inches: float, drive: Drivetrain) -> None:
         """Creates a new DriveDistance. This command will drive your your robot for a desired distance at
         a desired speed.
@@ -39,4 +41,4 @@ class DriveDistance(commands2.CommandBase):
     def isFinished(self) -> bool:
         """Returns true when the command should end."""
         # Compare distance travelled from start to desired distance
-        return abs(self.drive.getAverageDistanceInch()) >= self.distance
+        return abs(self.drive.getLineSensor()) <= 175

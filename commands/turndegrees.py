@@ -1,6 +1,8 @@
+#
 # Copyright (c) FIRST and other WPILib contributors.
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
+#
 
 import math
 import commands2
@@ -8,7 +10,7 @@ import commands2
 from subsystems.drivetrain import Drivetrain
 
 
-class TurnDegrees(commands2.CommandBase):
+class TurnDegrees(commands2.Command):
     def __init__(self, speed: float, degrees: float, drive: Drivetrain) -> None:
         """Creates a new TurnDegrees. This command will turn your robot for a desired rotation (in
         degrees) and rotational speed.

@@ -4,6 +4,8 @@
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
 #
+
+#
 # Example that shows how to connect to a ROMI from RobotPy
 #
 # Requirements
@@ -20,18 +22,15 @@
 # Run the program
 # ---------------
 #
-# To run the program you will need to explicitly use the ws-client option: on you car connected to Romi via wifi
+# To run the program you will need to explicitly use the ws-client option:
 #
 #    # Windows
-#    py -3 robot.py sim --ws-client
+#    py -3 robotpy sim --ws-client
 #
 #    # Linux/macOS
-#    python robot.py sim --ws-client
+#    python robotpy sim --ws-client
 #
-# By default the WPILib simulation GUI will be displayed. 
-# Once display opens you will have to manually assign joysitck to from System Joysticks to Joysticks window to assign them. Assign to Joystick[0] for this default code to work.
-#
-#To disable the display
+# By default the WPILib simulation GUI will be displayed. To disable the display
 # you can add the --nogui option
 #
 
@@ -43,11 +42,13 @@ import commands2
 
 from robotcontainer import RobotContainer
 
+# If your ROMI isn't at the default address, set that here
+os.environ["HALSIMWS_HOST"] = "10.5.73.1"
+os.environ["HALSIMWS_PORT"] = "3300"
+
 
 class MyRobot(commands2.TimedCommandRobot):
     """
-    Our default robot class, pass it to wpilib.run
-
     Command v2 robots are encouraged to inherit from TimedCommandRobot, which
     has an implementation of robotPeriodic which runs the scheduler for you
     """
@@ -94,11 +95,3 @@ class MyRobot(commands2.TimedCommandRobot):
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode
         commands2.CommandScheduler.getInstance().cancelAll()
-
-
-if __name__ == "__main__":
-    # If your ROMI isn't at the default address, set that here
-    os.environ["HALSIMWS_HOST"] = "10.0.0.2"
-    os.environ["HALSIMWS_PORT"] = "3300"
-
-    wpilib.run(MyRobot)

@@ -1,6 +1,8 @@
+#
 # Copyright (c) FIRST and other WPILib contributors.
 # Open Source Software; you can modify and/or share it under the terms of
 # the WPILib BSD license file in the root directory of this project.
+#
 
 import typing
 
@@ -61,19 +63,18 @@ class RobotContainer:
         self.drivetrain.setDefaultCommand(self.getArcadeDriveCommand())
 
         # Example of how to use the onboard IO
-        onboardButtonA = commands2.button.Button(self.onboardIO.getButtonAPressed)
-        onboardButtonA.whenActive(
-            commands2.PrintCommand("Button A Pressed")
-        ).whenInactive(commands2.PrintCommand("Button A Released"))
+       #onboardButtonA = commands2.button.Button(self.onboardIO.getButtonAPressed)
+       # onboardButtonA.whenActive(
+       #     commands2.PrintCommand("Button A Pressed")
+       # ).whenInactive(commands2.PrintCommand("Button A Released"))
 
         # Setup SmartDashboard options
         self.chooser.setDefaultOption(
             "Auto Routine Distance", AutonomousDistance(self.drivetrain)
         )
-        self.chooser.addOption("Auto Routine Time", AutonomousTime(self.drivetrain))
         wpilib.SmartDashboard.putData(self.chooser)
 
-    def getAutonomousCommand(self) -> typing.Optional[commands2.CommandBase]:
+    def getAutonomousCommand(self) -> typing.Optional[commands2.Command]:
         return self.chooser.getSelected()
 
     def getArcadeDriveCommand(self) -> ArcadeDrive:
@@ -84,5 +85,5 @@ class RobotContainer:
         return ArcadeDrive(
             self.drivetrain,
             lambda: self.controller.getRawAxis(1),
-            lambda: self.controller.getRawAxis(0),
+            lambda: self.controller.getRawAxis(2),
         )
