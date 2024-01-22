@@ -7,6 +7,7 @@
 import commands2
 
 from subsystems.drivetrain import Drivetrain
+import config
 
 
 class DriveDistance(commands2.Command):
@@ -41,4 +42,4 @@ class DriveDistance(commands2.Command):
     def isFinished(self) -> bool:
         """Returns true when the command should end."""
         # Compare distance travelled from start to desired distance
-        return abs(self.drive.getLineSensor()) <= 175
+        return abs(self.drive.getLineSensor()) <= config.sensor_threshold_value
