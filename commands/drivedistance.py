@@ -42,4 +42,9 @@ class DriveDistance(commands2.Command):
     def isFinished(self) -> bool:
         """Returns true when the command should end."""
         # Compare distance travelled from start to desired distance
-        return abs(self.drive.getLineSensor()) <= config.sensor_threshold_value
+        output = False
+        if config.sensor_gt_value:
+            output = abs(self.drive.getLineSensor()) >= config.sensor_threshold_value
+        else:
+            output = abs(self.drive.getLineSensor()) <= config.sensor_threshold_value
+        return output
